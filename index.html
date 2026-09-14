@@ -3,59 +3,240 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Base Camper Kits | Modular Vehicle Conversions</title>
+  <title>Base Camper Kits | Systems Engineering & Modular Vehicle Conversions</title>
   <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-hover: #1d4ed8;
+      --accent: #0284c7;
+      --dark: #0f172a;
+      --gray-light: #f8fafc;
+      --gray-mid: #e2e8f0;
+      --text: #334155;
+      --text-heading: #0f172a;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #1f2937; background: #f9fafb; }
-    header { background: #111827; color: #fff; padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-    .brand { font-size: 1.25rem; font-weight: 700; letter-spacing: 0.05em; }
-    .btn-nav { color: #f3f4f6; text-decoration: none; border: 1px solid #4b5563; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.875rem; transition: 0.2s; }
-    .btn-nav:hover { background: #374151; }
-    .hero { max-width: 900px; margin: 4rem auto 2rem; padding: 0 1.5rem; text-align: center; }
-    .hero h1 { font-size: 2.75rem; color: #111827; margin-bottom: 1rem; line-height: 1.2; }
-    .hero p { font-size: 1.2rem; color: #4b5563; max-width: 720px; margin: 0 auto 2rem; }
-    .status-badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 0.35rem 0.85rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem; }
-    .cta-btn { display: inline-block; background: #2563eb; color: #fff; text-decoration: none; font-weight: 600; padding: 0.85rem 1.75rem; border-radius: 8px; transition: 0.2s; }
-    .cta-btn:hover { background: #1d4ed8; }
-    .section { max-width: 900px; margin: 3rem auto; padding: 0 1.5rem; }
-    .section h2 { font-size: 1.75rem; margin-bottom: 1.5rem; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; color: #111827; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; color: #111827; }
-    .card p { font-size: 0.95rem; color: #4b5563; }
-    footer { background: #111827; color: #9ca3af; text-align: center; padding: 2.5rem 1.5rem; margin-top: 5rem; font-size: 0.875rem; }
-    footer a { color: #60a5fa; text-decoration: none; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: var(--text); background: #ffffff; }
+    
+    header { background: var(--dark); color: #fff; padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; }
+    .brand { font-size: 1.25rem; font-weight: 700; letter-spacing: 0.05em; color: #fff; text-decoration: none; }
+    .nav-links a { color: #cbd5e1; text-decoration: none; font-size: 0.9rem; margin-left: 1.5rem; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .btn-nav { border: 1px solid #475569; padding: 0.5rem 1rem; border-radius: 6px; }
+
+    .hero { max-width: 960px; margin: 4.5rem auto 3rem; padding: 0 1.5rem; text-align: center; }
+    .status-badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 0.4rem 1rem; border-radius: 9999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: 0.02em; }
+    .hero h1 { font-size: 3rem; color: var(--text-heading); margin-bottom: 1.25rem; line-height: 1.15; font-weight: 800; }
+    .hero p { font-size: 1.2rem; color: #475569; max-width: 780px; margin: 0 auto 2.25rem; }
+    .cta-group { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--primary); color: #fff; text-decoration: none; font-weight: 600; padding: 0.85rem 1.85rem; border-radius: 8px; transition: background 0.2s; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: var(--gray-light); color: var(--dark); border: 1px solid var(--gray-mid); text-decoration: none; font-weight: 600; padding: 0.85rem 1.85rem; border-radius: 8px; }
+
+    .container { max-width: 1040px; margin: 4.5rem auto; padding: 0 1.5rem; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header h2 { font-size: 2.1rem; color: var(--text-heading); margin-bottom: 0.75rem; }
+    .section-header p { font-size: 1.05rem; color: #64748b; max-width: 650px; margin: 0 auto; }
+
+    /* Process Pipeline Flow */
+    .process-flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
+    .process-card { background: var(--gray-light); border: 1px solid var(--gray-mid); border-radius: 8px; padding: 1.5rem; position: relative; }
+    .step-num { font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .process-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--text-heading); }
+    .process-card p { font-size: 0.875rem; color: #64748b; }
+
+    /* Requirements & Envelope Tables */
+    .table-wrapper { overflow-x: auto; margin-top: 1.5rem; background: #fff; border: 1px solid var(--gray-mid); border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.925rem; }
+    th { background: #f1f5f9; padding: 1rem 1.25rem; font-weight: 600; color: var(--text-heading); border-bottom: 1px solid var(--gray-mid); }
+    td { padding: 1rem 1.25rem; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    .tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+    .tag-functional { background: #dbeafe; color: #1e40af; }
+    .tag-interface { background: #fef3c7; color: #92400e; }
+    .tag-manufacturing { background: #dcfce7; color: #166534; }
+    .tag-performance { background: #f3e8ff; color: #6b21a8; }
+
+    /* Diagram / Proof Section */
+    .diagram-panel { background: var(--gray-light); border: 1px solid var(--gray-mid); border-radius: 12px; padding: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
+    .diagram-preview { background: #fff; border: 2px dashed #cbd5e1; border-radius: 8px; height: 320px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 1.5rem; color: #64748b; }
+    .diagram-preview img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; }
+    .diagram-details h3 { font-size: 1.4rem; color: var(--text-heading); margin-bottom: 0.75rem; }
+    .diagram-details ul { margin-left: 1.25rem; margin-top: 1rem; }
+    .diagram-details li { margin-bottom: 0.5rem; font-size: 0.95rem; }
+
+    footer { background: var(--dark); color: #94a3b8; text-align: center; padding: 3rem 1.5rem; margin-top: 6rem; font-size: 0.875rem; }
+    footer a { color: #38bdf8; text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      .diagram-panel { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
+
   <header>
-    <div class="brand">BASE CAMPER KITS</div>
-    <a href="mailto:info@basecamperkits.com" class="btn-nav">Contact Engineering</a>
+    <a href="#" class="brand">BASE CAMPER KITS</a>
+    <nav class="nav-links">
+      <a href="#process">Design Process</a>
+      <a href="#requirements">Engineering Matrix</a>
+      <a href="#ergonomics">Ergonomics & Envelope</a>
+      <a href="mailto:info@basecamperkits.com" class="btn-nav">Contact Engineering</a>
+    </nav>
   </header>
 
   <main>
+    <!-- HERO -->
     <section class="hero">
-      <span class="status-badge">Phase 1 Prototyping & Field Validation</span>
-      <h1>Modular Interior Camper Systems</h1>
-      <p>Precision-engineered, removable sleeping platforms and cabinetry for compact vehicles and crossovers. Flat-component assembly with zero-drill retention architecture.</p>
-      <a href="mailto:info@basecamperkits.com?subject=Batch%2001%20Waitlist%20Inquiry" class="cta-btn">Join Batch 01 Waitlist</a>
+      <span class="status-badge">Phase 1 Systems Engineering & Prototyping</span>
+      <h1>Modular Vehicle Camper Systems</h1>
+      <p>Purpose-built, removable sleeping platforms and galley cabinetry engineered through formal Systems Engineering principles. Designed for compact utility vehicles, daily drivability, and tool-free modularity.</p>
+      <div class="cta-group">
+        <a href="mailto:info@basecamperkits.com?subject=Batch%2001%20Early%20Access%20Inquiry" class="btn-primary">Inquire About Batch 01</a>
+        <a href="#process" class="btn-secondary">Explore Design Process</a>
+      </div>
     </section>
 
-    <section class="section">
-      <h2>Engineering Focus & Specifications</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Precision Interlocking Architecture</h3>
-          <p>Machined hardwood composite components engineered with slot-and-wedge joints for rigid, tool-free field assembly.</p>
+    <!-- DESIGN PROCESS PIPELINE -->
+    <section class="container" id="process">
+      <div class="section-header">
+        <h2>Engineering Design Process</h2>
+        <p>From operational concept definition down to precision-machined CNC joinery and validation.</p>
+      </div>
+      <div class="process-flow">
+        <div class="process-card">
+          <div class="step-num">Step 01</div>
+          <h3>CONOPS & Needs</h3>
+          <p>Define operational concepts: single-operator installation, daily driver retention, quiet ride dynamics, and multi-day off-grid capability.</p>
         </div>
-        <div class="card">
-          <h3>Zero-Drill Retention</h3>
-          <p>Anchors directly into existing factory cargo tie-down points. Preserves vehicle resale value and allows 10-minute removal.</p>
+        <div class="process-card">
+          <div class="step-num">Step 02</div>
+          <h3>Vehicle Constraints</h3>
+          <p>Establish exact vehicle cargo boundaries, factory tie-down locations, weight ceilings, and strict zero-permanent-alteration criteria.</p>
         </div>
-        <div class="card">
-          <h3>Integrated Storage & Slide-Outs</h3>
-          <p>Heavy-duty drawer runners and modular storage bays engineered for trail kitchens, auxiliary power, and expedition gear.</p>
+        <div class="process-card">
+          <div class="step-num">Step 03</div>
+          <h3>Requirements Matrix</h3>
+          <p>Formalize Functional, Performance, Physical/Interface, and Manufacturing parameters to govern all mechanical assemblies.</p>
         </div>
+        <div class="process-card">
+          <div class="step-num">Step 04</div>
+          <h3>CAD Modeling & Joints</h3>
+          <p>Translate subsystem spatial envelopes into 3D CAD models with interlocking CNC slot-and-pin joinery for toolless assembly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCEPT LAYOUT / SPATIAL ENVELOPE -->
+    <section class="container">
+      <div class="diagram-panel">
+        <div class="diagram-preview">
+          <!-- Place your exported slide image (e.g. kitchen-layout.jpg) in the repo root -->
+          <img src="kitchen-layout.jpg" alt="Kitchen Galley Layout Concept" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <div>
+            <strong>Galley Subsystem Architecture</strong>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem;">[ Upload <code>kitchen-layout.jpg</code> to repo to display slide schematic ]</p>
+          </div>
+        </div>
+        <div class="diagram-details">
+          <h3>Subsystem Envelope & Packaging</h3>
+          <p>Subsystem packaging is validated directly against standard, widely available hardware to guarantee maintainability and replacement convenience.</p>
+          <ul>
+            <li><strong>Propane Cooktop:</strong> Dual-burner layout with dedicated fuel isolation.</li>
+            <li><strong>Refrigeration:</strong> 22.68″D × 12.6″W × 12.97″H compressor cold storage.</li>
+            <li><strong>Auxiliary Water:</strong> 11.25″L × 11.0″W × 15.25″H potable jug bay.</li>
+            <li><strong>Electrical Block:</strong> 11.8″L × 7.6″W × 9.5″H power station bay accessible from bed.</li>
+            <li><strong>Sanitation:</strong> Nesting prep sink basin and integrated waste receptacles.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUIREMENTS ENGINEERING MATRIX -->
+    <section class="container" id="requirements">
+      <div class="section-header">
+        <h2>System Requirements Matrix</h2>
+        <p>Verified design targets derived directly from user needs and structural constraints.</p>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Classification</th>
+              <th>Requirement Statement</th>
+              <th>Verification / Design Implementation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag tag-functional">Functional</span></td>
+              <td>Dual-Occupant Sleeping Surface</td>
+              <td>Deployable sleeping deck engineered for primary single user with secondary width expansion.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-interface">Interface</span></td>
+              <td>Zero-Alteration Vehicle Anchoring</td>
+              <td>Attaches exclusively via factory vehicle tie-down brackets without vehicle drilling or cutouts.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-performance">Performance</span></td>
+              <td>Single-Person Installation & Removal</td>
+              <td>Modular sub-assemblies weigh under single-person lift limits for 15-minute removal.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-functional">Functional</span></td>
+              <td>All-Weather In-Cab Accessibility</td>
+              <td>Galley storage, cooler access, and power station reachable directly from inside the cabin.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-manufacturing">Manufacturing</span></td>
+              <td>Small-Shop CNC Machinability</td>
+              <td>Flat-pack component architecture optimized for nested sheets on a 3-axis CNC router table.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- HUMAN FACTORS & ERGONOMICS -->
+    <section class="container" id="ergonomics">
+      <div class="section-header">
+        <h2>Ergonomics & Clearance Envelope</h2>
+        <p>Biomechanical human factor constraints integrated into the structural layout.</p>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Biomechanical Parameter</th>
+              <th>Engineering Specification</th>
+              <th>Functional Intent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Seated Deck Height</strong></td>
+              <td>15.7″ – 18.1″ (including cushion)</td>
+              <td>Maintains natural ergonomic knee angle while maximizing overhead seated clearance.</td>
+            </tr>
+            <tr>
+              <td><strong>Worksurface Plane</strong></td>
+              <td>29.0″ – 33.0″ above floor plane</td>
+              <td>Standardized posture plane for laptop productivity and food preparation.</td>
+            </tr>
+            <tr>
+              <td><strong>Knee Clearance Envelope</strong></td>
+              <td>22.8″W × 17.7″D × 5.9″H (table underside)</td>
+              <td>Prevents thigh and knee impingement during stationary seated desk work.</td>
+            </tr>
+            <tr>
+              <td><strong>Interior Cab Passage</strong></td>
+              <td>18.0″ minimum width</td>
+              <td>Guarantees unhindered movement from cockpit through rear cargo sleep zone.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
   </main>
@@ -64,5 +245,6 @@
     <p style="margin-bottom: 0.5rem;">Base Camper Kits is an operating division of Mongeons Auto Next Gen Auto Sales LLC.</p>
     <p>North Smithfield, Rhode Island | Inquiries: <a href="mailto:info@basecamperkits.com">info@basecamperkits.com</a></p>
   </footer>
+
 </body>
 </html>
